@@ -1,0 +1,72 @@
+@if (viewMode){
+  @if (currentTutorial.id){
+  <h4>Item</h4>
+  <div>
+    <label><strong>Nombre:</strong></label> {{ currentTutorial.nombre }}
+  </div>
+  <div>
+    <label><strong>Descripcion:</strong></label>
+    {{ currentTutorial.descripcion }}
+  </div>
+  <div>
+    <label><strong>Estado:</strong></label>
+    {{ currentTutorial.tipo ? "A" : "Activo" }}
+  </div>
+
+  <a class="badge badge-warning" routerLink="/items/{{ currentTutorial.id }}">
+    Edit
+  </a>
+  } @else {<p>Click sobre un material...</p>}
+} @else {
+  @if (currentTutorial.id) {
+  <div class="edit-form">
+    <h4>Material</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentTutorial.nombre"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Descripcion</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentTutorial.descripcion"
+          name="description"
+        />
+      </div>
+
+      <div class="form-group">
+        <label><strong>Tipo:</strong></label>
+        {{ currentTutorial.tipo ? "A" : "Active" }}
+      </div>
+    </form>
+
+    @if (currentTutorial.tipo=='A') {
+    } @else {
+    <button class="badge badge-primary mr-2" (click)="updatePublished(true)">
+      Publish
+    </button>
+    }
+
+    <button class="badge badge-danger mr-2" (click)="deleteTutorial()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateTutorial()">
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+  } @else {<p>Cannot access this Item...</p>}
+}
